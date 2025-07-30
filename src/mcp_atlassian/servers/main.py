@@ -27,6 +27,7 @@ from mcp_atlassian.utils.tools import get_enabled_tools, should_include_tool
 from .confluence import confluence_mcp
 from .context import MainAppContext
 from .jira import jira_mcp
+from .servicedesk import servicedesk_mcp
 
 logger = logging.getLogger("mcp-atlassian.server.main")
 
@@ -328,7 +329,7 @@ class UserTokenMiddleware(BaseHTTPMiddleware):
 main_mcp = AtlassianMCP(name="Atlassian MCP", lifespan=main_lifespan)
 main_mcp.mount("jira", jira_mcp)
 main_mcp.mount("confluence", confluence_mcp)
-
+main_mcp.mount("servicedesk", servicedesk_mcp)
 
 @main_mcp.custom_route("/healthz", methods=["GET"], include_in_schema=False)
 async def _health_check_route(request: Request) -> JSONResponse:
