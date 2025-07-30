@@ -59,11 +59,11 @@ async def servicedesk_get_request_types(
 
 
 @servicedesk_mcp.tool(tags={"servicedesk", "read"})
-async def servicedesk_get_organisations(
+async def servicedesk_get_organizations(
     ctx: Context,
     service_desk_id: Annotated[Optional[str], Field(description="Service Desk ID (optional if JIRA_DEFAULT_SERVICE_DESK_ID is set)")] = None
 ) -> str:
-    """Get available organisations for a Service Desk."""
+    """Get available organizations for a Service Desk."""
     jira = await get_jira_fetcher(ctx)
     
     # Use default service desk ID if none provided
@@ -74,10 +74,10 @@ async def servicedesk_get_organisations(
     
     try:
         servicedesk = ServiceDeskFetcher(jira.config)
-        orgs = servicedesk.get_organisations(service_desk_id)
+        orgs = servicedesk.get_organizations(service_desk_id)
         return json.dumps(orgs, indent=2)
     except Exception as e:
-        logger.error(f"Error getting organisations: {e}")
+        logger.error(f"Error getting organizations: {e}")
         return f"Error: {e}"
 
 

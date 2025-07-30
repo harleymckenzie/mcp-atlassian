@@ -78,8 +78,8 @@ class ServiceDeskFetcher:
         """Get request types for a service desk."""
         return self._make_request('GET', f'servicedesk/{service_desk_id}/requesttype').get('values', [])
     
-    def get_organisations(self, service_desk_id: str) -> List[Dict[str, Any]]:
-        """Get organisations for a service desk."""
+    def get_organizations(self, service_desk_id: str) -> List[Dict[str, Any]]:
+        """Get organizations for a service desk."""
         return self._make_request('GET', f'servicedesk/{service_desk_id}/organization').get('values', [])
 
     def get_organization_users(self, organization_id: str, start: int = 0, limit: int = 50) -> Dict[str, Any]:

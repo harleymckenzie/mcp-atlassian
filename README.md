@@ -748,7 +748,7 @@ Here's a complete example of setting up multi-user authentication with streamabl
 
 - `servicedesk_get_service_desks`: Get all available Service Desks
 - `servicedesk_get_request_types`: Get request types for a Service Desk
-- `servicedesk_get_organisations`: Get organizations for a Service Desk
+- `servicedesk_get_organizations`: Get organizations for a Service Desk
 - `servicedesk_create_customer_request`: Create a Service Desk customer request
 - `servicedesk_get_organization_users`: Get users in a Service Desk organization
 
@@ -758,7 +758,7 @@ Here's a complete example of setting up multi-user authentication with streamabl
 |-----------|-------------------------------------|--------------------------------|---------------------------------------|
 | **Read**  | `jira_search`                       | `confluence_search`            | `servicedesk_get_service_desks`       |
 |           | `jira_get_issue`                    | `confluence_get_page`          | `servicedesk_get_request_types`       |
-|           | `jira_get_all_projects`             | `confluence_get_page_children` | `servicedesk_get_organisations`       |
+|           | `jira_get_all_projects`             | `confluence_get_page_children` | `servicedesk_get_organizations`       |
 |           | `jira_get_project_issues`           | `confluence_get_comments`      | `servicedesk_get_request_type_fields` |
 |           | `jira_get_worklog`                  | `confluence_get_labels`        | `servicedesk_get_organization_users`  |
 |           | `jira_get_transitions`              | `confluence_search_user`       |                                       |
