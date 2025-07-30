@@ -31,14 +31,14 @@ https://github.com/user-attachments/assets/7fe9c488-ad0c-4876-9b54-120b666bb785
 
 ### Compatibility
 
-| Product            | Deployment Type    | Support Status              |
-|--------------------|--------------------|-----------------------------|
-| **Confluence**     | Cloud              | ✅ Fully supported           |
-| **Confluence**     | Server/Data Center | ✅ Supported (version 6.0+)  |
-| **Jira**           | Cloud              | ✅ Fully supported           |
-| **Jira**           | Server/Data Center | ✅ Supported (version 8.14+) |
-| **Jira Service Desk** | Cloud          | ❕ Partly supported        |
-| **Jira Service Desk** | Server/Data Center | ❌ Not supported |
+| Product               | Deployment Type    | Support Status              |
+|-----------------------|--------------------|-----------------------------|
+| **Confluence**        | Cloud              | ✅ Fully supported           |
+| **Confluence**        | Server/Data Center | ✅ Supported (version 6.0+)  |
+| **Jira**              | Cloud              | ✅ Fully supported           |
+| **Jira**              | Server/Data Center | ✅ Supported (version 8.14+) |
+| **Jira Service Desk** | Cloud              | ❕ Partly supported          |
+| **Jira Service Desk** | Server/Data Center | ❌ Not supported             |
 
 
 ## Quick Start Guide
