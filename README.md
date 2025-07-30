@@ -16,6 +16,8 @@ Ask your AI assistant to:
 - **🔍 AI-Powered Confluence Search** - "Find our OKR guide in Confluence and summarize it"
 - **🐛 Smart Jira Issue Filtering** - "Show me urgent bugs in PROJ project from last week"
 - **📄 Content Creation & Management** - "Create a tech design doc for XYZ feature"
+- **🎫 Service Desk Management** - "Create a Service Desk request for database access"
+- **👥 Organization Management** - "List users in the Example organization"
 
 ### Feature Demo
 
@@ -29,12 +31,15 @@ https://github.com/user-attachments/assets/7fe9c488-ad0c-4876-9b54-120b666bb785
 
 ### Compatibility
 
-| Product        | Deployment Type    | Support Status              |
-|----------------|--------------------|-----------------------------|
-| **Confluence** | Cloud              | ✅ Fully supported           |
-| **Confluence** | Server/Data Center | ✅ Supported (version 6.0+)  |
-| **Jira**       | Cloud              | ✅ Fully supported           |
-| **Jira**       | Server/Data Center | ✅ Supported (version 8.14+) |
+| Product            | Deployment Type    | Support Status              |
+|--------------------|--------------------|-----------------------------|
+| **Confluence**     | Cloud              | ✅ Fully supported           |
+| **Confluence**     | Server/Data Center | ✅ Supported (version 6.0+)  |
+| **Jira**           | Cloud              | ✅ Fully supported           |
+| **Jira**           | Server/Data Center | ✅ Supported (version 8.14+) |
+| **Jira Service Desk** | Cloud          | ❕ Partly supported        |
+| **Jira Service Desk** | Server/Data Center | ❌ Not supported |
+
 
 ## Quick Start Guide
 
@@ -142,6 +147,7 @@ There are two main approaches to configure the Docker container:
 >
 > - `CONFLUENCE_SPACES_FILTER`: Filter by space keys (e.g., "DEV,TEAM,DOC")
 > - `JIRA_PROJECTS_FILTER`: Filter by project keys (e.g., "PROJ,DEV,SUPPORT")
+> - `JIRA_DEFAULT_SERVICE_DESK_ID`: Default Service Desk ID for Service Desk operations (e.g., "5")
 > - `READ_ONLY_MODE`: Set to "true" to disable write operations
 > - `MCP_VERBOSE`: Set to "true" for more detailed logging
 > - `MCP_LOGGING_STDOUT`: Set to "true" to log to stdout instead of stderr
@@ -738,40 +744,48 @@ Here's a complete example of setting up multi-user authentication with streamabl
 - `confluence_create_page`: Create a new page
 - `confluence_update_page`: Update an existing page
 
+#### Service Desk Tools
+
+- `servicedesk_get_service_desks`: Get all available Service Desks
+- `servicedesk_get_request_types`: Get request types for a Service Desk
+- `servicedesk_get_organisations`: Get organizations for a Service Desk
+- `servicedesk_create_customer_request`: Create a Service Desk customer request
+- `servicedesk_get_organization_users`: Get users in a Service Desk organization
+
 <details> <summary>View All Tools</summary>
 
-| Operation | Jira Tools                          | Confluence Tools               |
-|-----------|-------------------------------------|--------------------------------|
-| **Read**  | `jira_search`                       | `confluence_search`            |
-|           | `jira_get_issue`                    | `confluence_get_page`          |
-|           | `jira_get_all_projects`             | `confluence_get_page_children` |
-|           | `jira_get_project_issues`           | `confluence_get_comments`      |
-|           | `jira_get_worklog`                  | `confluence_get_labels`        |
-|           | `jira_get_transitions`              | `confluence_search_user`       |
-|           | `jira_search_fields`                |                                |
-|           | `jira_get_agile_boards`             |                                |
-|           | `jira_get_board_issues`             |                                |
-|           | `jira_get_sprints_from_board`       |                                |
-|           | `jira_get_sprint_issues`            |                                |
-|           | `jira_get_issue_link_types`         |                                |
-|           | `jira_batch_get_changelogs`*        |                                |
-|           | `jira_get_user_profile`             |                                |
-|           | `jira_download_attachments`         |                                |
-|           | `jira_get_project_versions`         |                                |
-| **Write** | `jira_create_issue`                 | `confluence_create_page`       |
-|           | `jira_update_issue`                 | `confluence_update_page`       |
-|           | `jira_delete_issue`                 | `confluence_delete_page`       |
-|           | `jira_batch_create_issues`          | `confluence_add_label`         |
-|           | `jira_add_comment`                  | `confluence_add_comment`       |
-|           | `jira_transition_issue`             |                                |
-|           | `jira_add_worklog`                  |                                |
-|           | `jira_link_to_epic`                 |                                |
-|           | `jira_create_sprint`                |                                |
-|           | `jira_update_sprint`                |                                |
-|           | `jira_create_issue_link`            |                                |
-|           | `jira_remove_issue_link`            |                                |
-|           | `jira_create_version`               |                                |
-|           | `jira_batch_create_versions`        |                                |
+| Operation | Jira Tools                          | Confluence Tools               | Service Desk Tools                    |
+|-----------|-------------------------------------|--------------------------------|---------------------------------------|
+| **Read**  | `jira_search`                       | `confluence_search`            | `servicedesk_get_service_desks`       |
+|           | `jira_get_issue`                    | `confluence_get_page`          | `servicedesk_get_request_types`       |
+|           | `jira_get_all_projects`             | `confluence_get_page_children` | `servicedesk_get_organisations`       |
+|           | `jira_get_project_issues`           | `confluence_get_comments`      | `servicedesk_get_request_type_fields` |
+|           | `jira_get_worklog`                  | `confluence_get_labels`        | `servicedesk_get_organization_users`  |
+|           | `jira_get_transitions`              | `confluence_search_user`       |                                       |
+|           | `jira_search_fields`                |                                |                                       |
+|           | `jira_get_agile_boards`             |                                |                                       |
+|           | `jira_get_board_issues`             |                                |                                       |
+|           | `jira_get_sprints_from_board`       |                                |                                       |
+|           | `jira_get_sprint_issues`            |                                |                                       |
+|           | `jira_get_issue_link_types`         |                                |                                       |
+|           | `jira_batch_get_changelogs`*        |                                |                                       |
+|           | `jira_get_user_profile`             |                                |                                       |
+|           | `jira_download_attachments`         |                                |                                       |
+|           | `jira_get_project_versions`         |                                |                                       |
+| **Write** | `jira_create_issue`                 | `confluence_create_page`       | `servicedesk_create_customer_request` |
+|           | `jira_update_issue`                 | `confluence_update_page`       | `servicedesk_update_issue`            |
+|           | `jira_delete_issue`                 | `confluence_delete_page`       | `servicedesk_add_users_to_organization` |
+|           | `jira_batch_create_issues`          | `confluence_add_label`         |                                       |
+|           | `jira_add_comment`                  | `confluence_add_comment`       |                                       |
+|           | `jira_transition_issue`             |                                |                                       |
+|           | `jira_add_worklog`                  |                                |                                       |
+|           | `jira_link_to_epic`                 |                                |                                       |
+|           | `jira_create_sprint`                |                                |                                       |
+|           | `jira_update_sprint`                |                                |                                       |
+|           | `jira_create_issue_link`            |                                |                                       |
+|           | `jira_remove_issue_link`            |                                |                                       |
+|           | `jira_create_version`               |                                |                                       |
+|           | `jira_batch_create_versions`        |                                |                                       |
 
 </details>
 

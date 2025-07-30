@@ -31,6 +31,7 @@ class JiraConfig:
     oauth_config: OAuthConfig | BYOAccessTokenOAuthConfig | None = None
     ssl_verify: bool = True  # Whether to verify SSL certificates
     projects_filter: str | None = None  # List of project keys to filter searches
+    default_service_desk_id: str | None = None  # Default Service Desk ID for Service Desk operations
     http_proxy: str | None = None  # HTTP proxy URL
     https_proxy: str | None = None  # HTTPS proxy URL
     no_proxy: str | None = None  # Comma-separated list of hosts to bypass proxy
@@ -117,6 +118,9 @@ class JiraConfig:
 
         # Get the projects filter if provided
         projects_filter = os.getenv("JIRA_PROJECTS_FILTER")
+        
+        # Get the default Service Desk ID if provided
+        default_service_desk_id = os.getenv("JIRA_DEFAULT_SERVICE_DESK_ID")
 
         # Proxy settings
         http_proxy = os.getenv("JIRA_HTTP_PROXY", os.getenv("HTTP_PROXY"))
@@ -136,6 +140,7 @@ class JiraConfig:
             oauth_config=oauth_config,
             ssl_verify=ssl_verify,
             projects_filter=projects_filter,
+            default_service_desk_id=default_service_desk_id,
             http_proxy=http_proxy,
             https_proxy=https_proxy,
             no_proxy=no_proxy,

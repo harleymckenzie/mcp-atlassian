@@ -81,6 +81,42 @@ class ServiceDeskFetcher:
     def get_organisations(self, service_desk_id: str) -> List[Dict[str, Any]]:
         """Get organisations for a service desk."""
         return self._make_request('GET', f'servicedesk/{service_desk_id}/organization').get('values', [])
+
+    def get_organization_users(self, organization_id: str, start: int = 0, limit: int = 50) -> Dict[str, Any]:
+        """Get users in a Service Desk organization.
+        
+        Args:
+            organization_id: The organization ID
+            start: Starting index for pagination (default: 0)
+            limit: Maximum number of users to return (default: 50)
+        
+        Returns:
+            Dict containing users list and pagination info
+        """
+        params = {
+            'start': start,
+            'limit': limit
+        }
+        
+        return self._make_request('GET', f'organization/{organization_id}/user', params=params)
+
+    def add_users_to_organization(self, organization_id: str, usernames: List[str]) -> Dict[str, Any]:
+        """Add users to a Service Desk organization.
+        
+        Args:
+            organization_id: The organization ID to add users to
+            usernames: List of usernames/account IDs to add to the organization
+        
+        Returns:
+            Dict containing the operation result
+        """
+        request_data = {
+            "usernames": usernames
+        }
+        
+        logger.info(f"Adding users {usernames} to organization {organization_id}")
+        
+        return self._make_request('POST', f'organization/{organization_id}/user', json=request_data)
     
     def get_request_type_fields(self, service_desk_id: str, request_type_id: str) -> List[Dict[str, Any]]:
         """Get request fields for a specific request type."""
